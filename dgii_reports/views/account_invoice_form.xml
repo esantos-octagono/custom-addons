@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="move_name_fix_supplier_account_invoice_form" model="ir.ui.view">
+            <field name="name">Arrego en move name con dgii</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="ncf_manager.ncf_manager_supplier_account_invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="move_name" position="attributes">
+                    <attribute name="size">11</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

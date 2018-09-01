@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <template id="marcos_api_tools_assets_backend" name="marcos_api_tools_assets_backend"
+                  inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/marcos_api_tools/static/src/libs/tingle.min.css"></link>
+                <script type="text/javascript" src="/marcos_api_tools/static/src/libs/tingle.min.js"></script>
+                <script type="text/javascript" src="/marcos_api_tools/static/src/libs/bootbox.min.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
