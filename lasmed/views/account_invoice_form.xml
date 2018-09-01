@@ -19,7 +19,7 @@
             <field name="name">medical.fields.invoice.line</field>
             <field name="model">account.invoice.line</field>
             <field name="inherit_id" ref="account.invoice_form"/>
-            <xpath name="arch" type="xml">
+            <field name="arch" type="xml">
                 <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
                     <field name="cober"/>
                 </xpath>
