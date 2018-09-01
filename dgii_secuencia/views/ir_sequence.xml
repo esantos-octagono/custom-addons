@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="limit_sequence" model="ir.ui.view">
+            <field name="name">IR SEQUENCE LIMIT</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view" />
+            <field name="arch" type="xml">
+                <field name="number_next_actual" position="after">
+                    <field name="limite"/>
+                    <field name="vencimiento_ncf"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

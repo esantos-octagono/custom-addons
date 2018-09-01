@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="inherit_company" inherit_id="report.external_layout_header">
+            <xpath expr="//div[@name='company_address']" position="replace">
+
+            </xpath>
+        </template>
+        <template id="recibo_de_pago" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@class='page']" position="replace">
+                <div class="page">
+                    <table name="table_header" width="100%">
+                        <tr>
+                            <td name="company_data">
+                                <div name="invoice_address" class="col-xs-2" style="text-align: left;border: 2px solid black;border-radius: 10px;height: 100px;width: 350px;">
+                                    <address t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                                    <span t-if="o.company_id.partner_id"><strong>RNC:</strong> <span t-field="o.company_id.partner_id.vat"/></span>
+                                </div>
+                            </td>
+                            <td name="fiscal_data">
+                                <div class="col-xs-2" style="text-align:left;float:right;border: 2px solid black;border-radius: 10px;height: 100px;width: 350px;" t-if="o.date_invoice">
+                                    <strong><p t-field="o.journal_id"/></strong>
+                                    <span t-if="o.journal_id.code == 'PEA' "><strong>Recibo: </strong><span t-field="o.number"/></span>
+                                    <span t-if="o.journal_id.code != 'PEA' "><strong>NCF: </strong><span t-field="o.number"/></span>
+                                    <p><strong>Válido hasta:</strong><t t-if="o.vencimiento_ncf"><span t-field="o.vencimiento_ncf"/></t><t t-if="not o.vencimiento_ncf">No Aplica</t></p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                    <hr style="border-style: dashed;border-width: 1px;"/>
+                        <div t-if="o.partner_id.vat">
+                            <strong>RNC/CED:</strong> <span t-field="o.partner_id.vat"/>
+                        </div>
+                        <div t-if="o.partner_id">
+                            <strong>Cliente:</strong> <span t-field="o.partner_id"/>
+                        </div>
+                    <hr style="border-style: dashed;border-width: 1px;"/>
+                    </div>
+
+                    <div class="row mt32 mb32">
+                        <div class="col-xs-2" t-if="o.name">
+                            <strong>Descripción:</strong>
+                            <p t-field="o.name"/>
+                        </div>
+
+                        <div class="col-xs-2" t-if="o.date and o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+                            <strong>Fecha Factura:</strong   >
+                            <p t-field="o.date"/>
+                        </div>
+                        <div class="col-xs-2" t-if="o.date_due and o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+                            <strong>Vencimiento:</strong>
+                            <p t-field="o.date_due"/>
+                        </div>
+                        <div class="col-xs-2" t-if="o.partner_id.ref">
+                            <strong>Código cliente:</strong>
+                            <p t-field="o.partner_id.ref"/>
+                        </div>
+                        <div name="reference" class="col-xs-2" t-if="o.reference">
+                            <strong>Referencia:</strong>
+                            <p t-field="o.reference"/>
+                        </div>
+                    </div>
+
+                    <!-- Is there a discount on at least one line? -->
+                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th class="hidden">Origen</th>
+                                <th class="text-right">Cantidad</th>
+                                <th class="text-right">Precio Unitario</th>
+                                <th t-if="display_discount" class="text-right">Desc.(%)</th>
+                                <th class="text-right">Impuestos</th>
+                                <th class="text-right">Precio sin impuestos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                <td><span t-field="l.name"/></td>
+                                <td class="hidden"><span t-field="l.origin"/></td>
+                                <td class="text-right">
+                                    <span t-field="l.quantity"/>
+                                    <span t-field="l.uom_id" groups="product.group_uom"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_unit"/>
+                                </td>
+                                <td t-if="display_discount" class="text-right">
+                                    <span t-field="l.discount"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-xs-4 pull-right">
+                            <table class="table table-condensed">
+                                <tr class="border-black">
+                                    <td><strong>Subtotal</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                                    <tr>
+                                        <td><span t-esc="amount_by_group[0] if len(o.tax_line_ids) &gt; 1 else (o.tax_line_ids.tax_id.description or o.tax_line_ids.tax_id.name)"/></td>
+                                        <td class="text-right">
+                                            <span t-esc="amount_by_group[2]"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr class="border-black">
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right">
+                                         <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- DO NOT REMOVE THIS TABLE. MANDATORY IN SOME COUNTRIES -->
+
+                    <p t-if="o.comment">
+                        <strong>Comentarios:</strong>
+                        <span t-field="o.comment"/>
+                    </p>
+                    <p t-if="o.payment_term_id">
+                        <span t-field="o.payment_term_id.note"/>
+                    </p>
+                    <p t-if="o.fiscal_position_id.note">
+                        <strong>Nota posicion fiscal:</strong>
+                        <span t-field="o.fiscal_position_id.note"/>
+                    </p>
+                </div>
+            </xpath>
+
+        </template>
+        <template id="inherit_company_footer" inherit_id="report.external_layout_footer">
+            <xpath expr="//div[@class='footer']" position="replace">
+                <div class="footer">
+                    <div class="text-center" style="border-top: 1px solid black;">
+                        <ul t-if="not company.custom_footer" class="list-inline">
+                            <t t-set="company" t-value="company.sudo()"/>
+                            <li t-if="company.phone">Telefono: <span t-field="company.phone"/></li>
+
+                            <li t-if="company.fax and company.phone">&amp;bull;</li>
+                            <li t-if="company.fax">Fax: <span t-field="company.fax"/></li>
+
+                            <li t-if="company.email and company.fax or company.email and company.phone">&amp;bull;</li>
+                            <li t-if="company.email">Correo: <span t-field="company.email"/></li>
+
+                            <li t-if="company.website and company.email or company.website and company.fax or company.website and company.phone">&amp;bull;</li>
+                            <li t-if="company.website">Sitio Web: <span t-field="company.website"/></li>
+                        </ul>
+
+                        <ul t-if="not company.custom_footer" class="list-inline" name="financial_infos">
+                            <li t-if="company.vat">RNC: <span t-field="company.vat"/></li>
+                        </ul>
+
+                        <t t-if="company.custom_footer">
+                            <span t-raw="company.rml_footer"/>
+                        </t>
+
+                        <ul class="list-inline">
+                            <li>Pagina:</li>
+                            <li><span class="page"/></li>
+                            <li>/</li>
+                            <li><span class="topage"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

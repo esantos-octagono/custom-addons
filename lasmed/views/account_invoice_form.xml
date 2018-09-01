@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="view_medical_fields_invoice">
+            <field name="name">medical.fields.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="ars"/>
+                    <field name="afiliacion"/>
+                    <field name="tipo_seguro"/>
+                    <field name="auth_num"/>
+                </field>
+            </field>
+      </record>
+
+      <record model="ir.ui.view" id="view_medical_fields_invoice">
+            <field name="name">medical.fields.invoice.line</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <xpath name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                    <field name="cober"/>
+                </xpath>
+            </field>
+      </record>
+  </data>
+</odoo>
