@@ -21,5 +21,4 @@
 
     ],
     'demo': [],
-    'images': 'static/description/main.png',
 }
