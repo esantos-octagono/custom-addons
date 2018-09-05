@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+      <record id="view_pricelists_product_template_form" model="ir.ui.view">
+            <field name="name">pricelists.product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales']" position="after">
+                    <page name="price_lists" string="Lista de precios ARSs">
+                        <field name="product_price_line" widget="one2many_list">
+                            <tree string="Lista de Precios ARSs" editable="bottom">
+                                <field name="ars"/>
+                                <field name="price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+      </record>
+  </data>
+</odoo>

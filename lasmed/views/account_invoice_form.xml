@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-      <record model="ir.ui.view" id="view_medical_fields_invoice">
+      <record id="view_medical_fields_invoice" model="ir.ui.view">
             <field name="name">medical.fields.invoice</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
-                    <field name="ars"/>
-                    <field name="afiliacion"/>
-                    <field name="tipo_seguro"/>
-                    <field name="auth_num"/>
+                    <field name="tipo_seguro" readonly="0"/>
+                    <field name="ars" attrs="{'required':[('tipo_seguro','in',('state','labor_union','private'))]}"/>
+                    <field name="afiliacion" attrs="{'required':[('ars','!=',False)]}"/>
+                    <field name="auth_num" attrs="{'required':[('ars','!=',False)]}"/>
                 </field>
-            </field>
-      </record>
-
-      <record model="ir.ui.view" id="view_medical_fields_invoice">
-            <field name="name">medical.fields.invoice.line</field>
-            <field name="model">account.invoice.line</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
-                    <field name="cober"/>
-                </xpath>
+                <field name="amount_tax" position="after">
+                    <field name="cober"
+                           attrs="{
+                           'invisible': [('ars', '=', False)],
+                           'readonly': [('state','not in','draft')]
+                           }"/>
+                </field>
+                <field name="invoice_line_ids" position="attributes">
+                    <attribute name="context">{'ars_id': ars}</attribute>
+                </field>
             </field>
       </record>
   </data>
