@@ -33,7 +33,7 @@ class AccountInvoice(models.Model):
         cober_prod = self.env['product.template'].search([('default_code', '=', 'insurance_cober')])
         prod = self.env['product.product'].search([('product_tmpl_id', '=', cober_prod.id)])
         if self.cober > 0:
-            self.invoice_line_ids = [(0, 0, {'name': prod.name, 'product_id': prod.id, 'account_id': self.account_id ,'price_unit': 0 - self.cober})]
+            self.invoice_line_ids = [(0, 0, {'name': prod.name, 'product_id': prod.id, 'account_id': prod.property_account_income_id ,'price_unit': 0 - self.cober})]
         if self.amount_total == 0.0:
             self.journal_id = self.env['account.journal'].search([('code', '=', 'noncf')]).id
         else:
