@@ -2,7 +2,11 @@
 
 {
     'name': 'Dgii Secuencia',
+<<<<<<< HEAD
     'author': 'Octagono',
+=======
+    'author': 'Asegurado',
+>>>>>>> 2a2343b54b5cb74b07be221d1377c1942efa3fd6
     'category': 'Configuration',
     'depends': [
         'base',
