@@ -13,7 +13,7 @@
     'category': 'Account',
     'version': '10.0',
 
-    'depends': ['base','product', 'account','medical','medical_insurance'],
+    'depends': ['base','ncf_manager','product', 'account','medical','medical_insurance'],
 
     'data': [
         "views/account_invoice_form.xml",

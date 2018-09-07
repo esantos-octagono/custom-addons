@@ -8,25 +8,28 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     ars = fields.Many2one(comodel_name='medical.insurance.company',string="ARS")
-    afiliacion = fields.Many2one(comodel_name='medical.insurance.plan',string=u'Afiliación')
+    afiliacion = fields.Char(string=u'Afiliación')
     tipo_seguro = fields.Selection([
-        ('state', 'Estado'),
-        ('labor_union', 'Sindicato / Sindical'),
+        ('insured', 'Asegurado'),
         ('private', 'Privado'),
     ],
-        help=u'¿A qué tipo de entidad se proporciona este seguro?',
-        related='afiliacion.insurance_affiliation',
         string= 'Tipo Seguro'
     )
     auth_num = fields.Char(string=u'# Autorización')
     cober = fields.Monetary("Cobertura")
+    cober_diference = fields.Monetary("Total")
 
     @api.onchange('cober')
     def _onchange_cober(self):
         if self.cober <= self.amount_total:
-            self.amount_total = self.amount_total - self.cober
+            self.cober_diference = self.amount_total - self.cober
         else:
             raise ValidationError("La cobertura debe ser menor o igual al total de la factura, confirme el monto con el suplidor")
+
+    @api.onchange('amount_untaxed')
+    def _onchange_amount_total(self):
+        self.cober_diference = self.amount_total - self.cober
+
 
     @api.multi
     def action_invoice_open(self):
