@@ -17,7 +17,8 @@
 
     'data': [
         "views/account_invoice_form.xml",
-        "views/product_form_view.xml"
+        "views/product_form_view.xml",
+        "wizard/wizard_cobers.xml"
 
     ],
     'demo': [],

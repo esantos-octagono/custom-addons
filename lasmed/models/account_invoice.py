@@ -13,11 +13,13 @@ class AccountInvoice(models.Model):
         ('insured', 'Asegurado'),
         ('private', 'Privado'),
     ],
-        string= 'Tipo Seguro'
+        string = 'Tipo Seguro'
     )
     auth_num = fields.Char(string=u'# Autorización')
     cober = fields.Monetary("Cobertura")
     cober_diference = fields.Monetary("Total")
+    settled = fields.Boolean(string="Liquidada", default=False)
+    is_settle = fields.Boolean(string="Es liquidacion", default=False)
 
     @api.onchange('cober')
     def _onchange_cober(self):
@@ -43,6 +45,8 @@ class AccountInvoice(models.Model):
             pass
 
         return super(AccountInvoice, self).action_invoice_open()
+
+
 
 
 class AccountInvoiceLine(models.Model):

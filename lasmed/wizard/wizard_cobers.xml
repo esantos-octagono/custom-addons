@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="cobers_make_invoice_form" model="ir.ui.view">
+            <field name="name">Crear Factura</field>
+            <field name="model">cobers.close</field>
+            <field name="arch" type="xml">
+                <form string="Crear Factura">
+                    <p class="oe_grey">
+                        Crear facturas de liquidación de coberturas.
+                    </p>
+                    <footer>
+                        <button name="settle_invoices"
+                                string="Crear Facturas"
+                                type="object"
+                                class="oe_highlight" />
+                        or
+                        <button special="cancel"
+                                string="Cancelar"
+                                class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--<act_window id="action_cobers_make_invoices"-->
+                    <!--name="Crear facturas de coberturas"-->
+                    <!--res_model="cobers.close"-->
+                    <!--view_mode="form"-->
+                    <!--view_type="form"-->
+                    <!--target="new" />-->
+
+        <act_window id="action_cobers_make_invoices"
+                multi="True"
+                key2="client_action_multi" name="Liquidar"
+                res_model="cobers.close" src_model="account.invoice"
+                view_mode="form" target="new" view_type="form" />
+</odoo>
