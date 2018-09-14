@@ -21,6 +21,22 @@ class AccountInvoice(models.Model):
     settled = fields.Boolean(string="Liquidada", default=False)
     is_settle = fields.Boolean(string="Es liquidacion", default=False)
 
+    @api.multi
+    def compute_amount_cober_total(self):
+        invoices = self.env['account.invoice'].search([])
+        for rec in invoices:
+            amount = 0.0
+            for line in rec.invoice_line_ids:
+                print line.name
+                if line.product_id.code == "insurance_cober":
+                    pass
+                else:
+                    amount += line.price_unit
+
+            rec.amount_cober_total = amount
+
+    amount_cober_total = fields.Monetary("Total", store=True, compute='compute_amount_cober_total')
+
     @api.onchange('cober')
     def _onchange_cober(self):
         if self.cober <= self.amount_total:
@@ -30,8 +46,7 @@ class AccountInvoice(models.Model):
 
     @api.onchange('amount_untaxed')
     def _onchange_amount_total(self):
-        self.cober_diference = self.amount_total - self.cober
-
+        self.cober_diference =   self.amount_total - self.cober
 
     @api.multi
     def action_invoice_open(self):
