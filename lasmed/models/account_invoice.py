@@ -17,6 +17,7 @@ class AccountInvoice(models.Model):
     )
     auth_num = fields.Char(string=u'# Autorización')
     cober = fields.Monetary("Cobertura")
+    discount = fields.Monetary("Descuento")
     cober_diference = fields.Monetary("Total")
     settled = fields.Boolean(string="Liquidada", default=False)
     is_settle = fields.Boolean(string="Es liquidacion", default=False)
@@ -37,27 +38,34 @@ class AccountInvoice(models.Model):
 
     amount_cober_total = fields.Monetary("Total", store=True, compute='compute_amount_cober_total')
 
-    @api.onchange('cober')
+    @api.onchange('cober','discount','invoice_line_ids')
     def _onchange_cober(self):
         if self.cober <= self.amount_total:
             self.cober_diference = self.amount_total - self.cober
         else:
             raise ValidationError("La cobertura debe ser menor o igual al total de la factura, confirme el monto con el suplidor")
 
-    @api.onchange('amount_untaxed')
+    @api.onchange('amount_untaxed','discount','invoice_line_ids')
     def _onchange_amount_total(self):
-        self.cober_diference =   self.amount_total - self.cober
+        self.cober_diference =   self.amount_total - self.cober - self.discount
 
     @api.multi
     def action_invoice_open(self):
         cober_prod = self.env['product.template'].search([('default_code', '=', 'insurance_cober')])
         prod = self.env['product.product'].search([('product_tmpl_id', '=', cober_prod.id)])
+        disc_prod = self.env['product.template'].search([('default_code', '=', 'discount')])
+        disc_prod = self.env['product.product'].search([('product_tmpl_id', '=', disc_prod.id)])
+
         if self.cober > 0:
             self.invoice_line_ids = [(0, 0, {'name': prod.name, 'product_id': prod.id, 'account_id': prod.property_account_income_id ,'price_unit': 0 - self.cober})]
+
         if self.amount_total == 0.0:
             self.journal_id = self.env['account.journal'].search([('code', '=', 'noncf')]).id
         else:
-            pass
+            if self.discount:
+                self.invoice_line_ids = [(0, 0, {'name': disc_prod.name, 'product_id': disc_prod.id,
+                                                 'account_id': disc_prod.property_account_income_id,
+                                                 'price_unit': 0 - self.discount})]
 
         return super(AccountInvoice, self).action_invoice_open()
 

@@ -22,6 +22,10 @@
                            'invisible': [('ars', '=', False)],
                            'readonly': [('state','not in','draft')]
                            }"/>
+                    <field name="discount"
+                           attrs="{
+                           'readonly': [('state','not in','draft')]
+                           }"/>
                 </field>
                 <field name="amount_total" position="replace">
                     <field name="cober_diference" class="oe_subtotal_footer_separator" readonly="1"/>
@@ -45,6 +49,7 @@
                 <field name="residual_signed" position="before">
                     <field name="amount_cober_total" sum="Total"/>
                     <field name="cober" string="Cobertura Seguro" sum="Total Seguro"/>
+                    <field name="discount" string="Descuento" sum="Total Discount"/>
                 </field>
             </field>
       </record>
