@@ -15,6 +15,7 @@ class CobersClose(models.TransientModel):
         cober_prod = self.env['product.template'].search([('default_code', '=', 'insurance_cober')])
         prod = self.env['product.product'].search([('product_tmpl_id', '=', cober_prod.id)])
         for invoice in invoice_ids:
+            invoice.settled = True
             invoice_line_ids.append((0, 0, {
                 'product_id': prod.id,
                 'name': prod.name,
@@ -59,6 +60,7 @@ class CobersClose(models.TransientModel):
             invoice_ids = invoice_ids.filtered(lambda r: (r.ars.id == ars.id) and (not r.settled) and (not r.is_settle))
             invoice_line_ids = []
             for invoice in invoice_ids:
+                invoice.settled = True
                 invoice_line_ids.append((0, 0, {
                     'product_id': prod.id,
                     'name': prod.name,

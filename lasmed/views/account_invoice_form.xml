@@ -42,6 +42,7 @@
             <field name="arch" type="xml">
                 <field name="state" position="after">
                     <field name="settled" widget="boolean_toggle"/>
+                    <field name="is_settle" widget="boolean_toggle"/>
                 </field>
                 <field name="amount_total_signed" position="replace">
                     <field name="amount_total_signed" string="Total a pagar" sum="Total a pagar"/>
