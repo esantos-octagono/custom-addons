@@ -16,6 +16,7 @@
     'depends': ['base','product', 'account','medical','medical_insurance'],
 
     'data': [
+        "security/ir.model.access.csv",
         "views/account_invoice_form.xml",
         "views/product_form_view.xml",
         "wizard/wizard_cobers.xml",
