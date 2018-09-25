@@ -32,6 +32,6 @@
         <act_window id="action_cobers_make_invoices"
                 multi="True"
                 key2="client_action_multi" name="Liquidar"
-                res_model="cobers.close" src_model="account.invoice"
+                res_model="cobers.close" src_model="ars.report"
                 view_mode="form" target="new" view_type="form" />
 </odoo>

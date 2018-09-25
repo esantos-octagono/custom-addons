@@ -15,7 +15,9 @@ class ArsReport(models.Model):
     partner_id = fields.Many2one('res.partner','Cliente')
     auth = fields.Char(u'NO. Autorización')
     ars = fields.Many2one('medical.insurance.company')
+    settled = fields.Boolean('Liquidada')
     currency_id = fields.Many2one('res.currency','Moneda')
+    invoice_id = fields.Many2one('account.invoice','Factura')
     monto = fields.Monetary('Monto')
 
     @api.model_cr
@@ -29,6 +31,8 @@ class ArsReport(models.Model):
             ai.afiliacion as  afil,
             ai.partner_id,
             ai.currency_id,
+            ai.settled,
+            ai.id as invoice_id,
             ai.auth_num as auth,
             ai.cober as monto
         from account_invoice ai
