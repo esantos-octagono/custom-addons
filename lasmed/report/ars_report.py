@@ -36,7 +36,7 @@ class ArsReport(models.Model):
             ai.auth_num as auth,
             ai.cober as monto
         from account_invoice ai
-        WHERE ai.is_settle = FALSE
+        WHERE ai.is_settle = FALSE and ai.type ='out_invoice'
         )""".format(self._table))
 
 
