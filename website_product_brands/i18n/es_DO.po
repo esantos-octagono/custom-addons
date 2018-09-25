@@ -1,0 +1,213 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_product_brands
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-17 15:36+0000\n"
+"PO-Revision-Date: 2018-09-17 15:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_product_brands
+#: model:ir.model.fields,help:website_product_brands.field_wk_product_brand_image
+msgid " This Image will be visible to user in there shop  by brand onwebsite view !"
+msgstr " Esta imagen sera visible para el usuario en la tienda por marca en la vista del sitio web !"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.products_attributes
+msgid "<b>Brands</b>"
+msgstr "<b>Marcas</b>"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.product_public_category_form_view
+msgid "Add/Remove Products of this Brand"
+msgstr "Agregar/eliminar productos de esta marca"
+
+#. module: website_product_brands
+#: model:ir.ui.menu,name:website_product_brands.menu_product_brand_config
+msgid "All Brands"
+msgstr "Todas las marcas"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_medical_insurance_template_product_brand_id
+#: model:ir.model.fields,field_description:website_product_brands.field_product_product_product_brand_id
+#: model:ir.model.fields,field_description:website_product_brands.field_product_template_product_brand_id
+msgid "Brand"
+msgstr "Marca"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_description
+msgid "Brand Description"
+msgstr "Descripción de la marca"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_name
+msgid "Brand Name"
+msgstr "Nombre de la Marca"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.inherited_products_description_website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.inherited_website_sale_cart_website_product_brands_wk
+msgid "Brand:"
+msgstr "Marca:"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.inherit_product_template_search_view
+msgid "Brands"
+msgstr "Marcas"
+
+#. module: website_product_brands
+#: model:ir.actions.act_window,help:website_product_brands.wk_website_product_brand_action
+msgid "Click to define a new Brands."
+msgstr "Click para definir nuevas marcas."
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.product_public_category_form_view
+msgid "Description"
+msgstr "Descripción"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: website_product_brands
+#: model:ir.model.fields,help:website_product_brands.field_wk_product_brand_sequence
+msgid "Gives the sequence order when displaying a list of brand onwebsite view.!"
+msgstr "Brinda el orden de secuencia al mostrar la lista de marcas en la vista del sitio web.!"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.inherit_product_template_search_view
+msgid "Group BY"
+msgstr "Agrupar Por"
+
+#. module: website_product_brands
+#: model:ir.actions.act_window,help:website_product_brands.product_brands_action
+msgid "Here is a list of all your products classified by brand."
+msgstr "Aqui hay una lista de todos sus productos clasificados por marca."
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.product_template_tree_view
+msgid "Product"
+msgstr "Producto"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.product_public_category_tree_view
+msgid "Product  Brands"
+msgstr "Marcas de productos"
+
+#. module: website_product_brands
+#: model:ir.ui.menu,name:website_product_brands.menu_product_brand_root_menu
+#: model:ir.ui.view,arch_db:website_product_brands.inherit_product_template_search_view
+#: model:ir.ui.view,arch_db:website_product_brands.product_public_category_form_view
+msgid "Product Brands"
+msgstr "Marcas de productos"
+
+#. module: website_product_brands
+#: model:ir.actions.act_window,name:website_product_brands.wk_website_product_brand_action
+msgid "Product Brands Configuration"
+msgstr "Configuracion de marcas de productos"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.product_category_tree_view
+msgid "Product Categories"
+msgstr "Categorías de productos"
+
+#. module: website_product_brands
+#: model:ir.model,name:website_product_brands.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: website_product_brands
+#: model:ir.actions.act_window,name:website_product_brands.product_product_brand_action_tree
+msgid "Product Variants"
+msgstr "Variantes de producto"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_products
+#: model:ir.ui.view,arch_db:website_product_brands.product_public_category_form_view
+msgid "Products"
+msgstr "Productos"
+
+#. module: website_product_brands
+#: model:ir.actions.act_window,name:website_product_brands.product_brands_action
+msgid "Products By Brand"
+msgstr "Productos por marca"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.wk_horizontal_brands
+msgid "Products."
+msgstr "Productos."
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.product_kanban_view
+msgid "Products:"
+msgstr "Productos:"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: website_product_brands
+#: model:ir.ui.view,arch_db:website_product_brands.wk_horizontal_brands
+msgid "Showing"
+msgstr "Mostrando"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_total_products
+msgid "Total no. of Products"
+msgstr "No. total de productos"
+
+#. module: website_product_brands
+#: model:ir.model,name:website_product_brands.model_website
+msgid "Website"
+msgstr "Sitio web"
+
+#. module: website_product_brands
+#: model:ir.model.fields,field_description:website_product_brands.field_wk_product_brand_image
+msgid "product  image"
+msgstr "imagen de producto"
+
+#. module: website_product_brands
+#: model:ir.model,name:website_product_brands.model_wk_product_brand
+msgid "wk.product.brand"
+msgstr "wk.product.brand"
+
