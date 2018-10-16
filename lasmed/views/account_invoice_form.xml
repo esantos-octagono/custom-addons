@@ -27,9 +27,9 @@
                            'readonly': [('state','not in','draft')]
                            }"/>
                 </field>
-                <field name="amount_total" position="replace">
-                    <field name="cober_diference" class="oe_subtotal_footer_separator" readonly="1"/>
-                </field>
+                <!--<field name="amount_total" position="replace">-->
+                    <!--<field name="cober_diference" class="oe_subtotal_footer_separator" readonly="1"/>-->
+                <!--</field>-->
                 <field name="invoice_line_ids" position="attributes">
                     <attribute name="context">{'ars_id': ars}</attribute>
                 </field>

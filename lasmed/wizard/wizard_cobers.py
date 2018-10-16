@@ -59,15 +59,17 @@ class CobersClose(models.TransientModel):
             invoice_ids = self.env['account.invoice'].browse(active_ids)
             invoice_ids = invoice_ids.filtered(lambda r: (r.ars.id == ars.id) and (not r.settled) and (not r.is_settle))
             invoice_line_ids = []
+            cober = 0.0
             for invoice in invoice_ids:
                 invoice.settled = True
-                invoice_line_ids.append((0, 0, {
-                    'product_id': prod.id,
-                    'name': prod.name,
-                    'price_unit': invoice.cober,
-                    'account_id': prod.property_account_income_id.id
-                }))
+                cober+=invoice.cober
 
+            invoice_line_ids.append((0, 0, {
+                'product_id': prod.id,
+                'name': prod.name,
+                'price_unit': cober,
+                'account_id': prod.property_account_income_id.id
+            }))
             vals = {
                 'partner_id': ars.partner_id.id,
                 'type': 'out_invoice',

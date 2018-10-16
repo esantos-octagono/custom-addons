@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+            id="account_invoices_lollipop"
+            model="account.invoice"
+            string="Facturas"
+            report_type="qweb-pdf"
+            name="dgii_invoice_report.report_invoice_lollipop"
+            file="dgii_invoice_report.report_invoice_lollipop"
+            attachment_use="False"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+        />
+    </data>
+</odoo>
