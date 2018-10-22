@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+      <record id="view_order_form_discount" model="ir.ui.view">
+        <field name="name">discount.field.sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_tax" position="after">
+                <field name="discount"
+                       attrs="{
+                           'readonly': [('state','not in','draft')]
+                           }"/>
+            </field>
+        </field>
+      </record>
+  </data>
+</odoo>
