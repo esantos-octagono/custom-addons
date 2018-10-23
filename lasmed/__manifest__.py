@@ -19,6 +19,7 @@
         "security/ir.model.access.csv",
         "views/account_invoice_form.xml",
         "views/sale_order_form.xml",
+        "views/res_partner.xml",
         "views/product_form_view.xml",
         "wizard/wizard_cobers.xml",
         "report/ars_report.xml"

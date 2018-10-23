@@ -12,7 +12,6 @@ class SaleOrder(models.Model):
     @api.onchange('discount', 'order_line')
     def _onchange_amount_total(self):
         amount = self.amount_untaxed + self.amount_tax
-        print amount
         if self.discount < 0.0:
             raise ValidationError("El descuento debe ser positivo")
             self.discount = False
@@ -31,6 +30,10 @@ class SaleOrder(models.Model):
             self.journal_id = self.env['account.journal'].search([('code', '=', 'noncf')]).id
         else:
             if self.discount:
+                for rec in self.order_line:
+                    if rec.product_id.id == disc_prod.id:
+                        rec.unlink()
+
                 self.order_line = [(0, 0, {'name': disc_prod.name, 'product_id': disc_prod.id,
                                                  'account_id': disc_prod.property_account_income_id,
                                                  'price_unit': 0 - self.discount})]

@@ -47,7 +47,16 @@ class AccountInvoice(models.Model):
 
     @api.onchange('amount_untaxed','discount','invoice_line_ids')
     def _onchange_amount_total(self):
-        self.cober_diference =   self.amount_total - self.cober - self.discount
+        amount = self.amount_untaxed + self.amount_tax
+        print amount
+        if self.discount < 0.0:
+            raise ValidationError("El descuento debe ser positivo")
+            self.discount = False
+        elif self.discount + self.cober > self.amount_total:
+            raise ValidationError("El descuento debe ser menor o igual al monto a pagar")
+            self.discount = False
+        else:
+            self.cober_diference = self.amount_total - self.cober - self.discount
 
     @api.multi
     def action_invoice_open(self):
@@ -57,12 +66,19 @@ class AccountInvoice(models.Model):
         disc_prod = self.env['product.product'].search([('product_tmpl_id', '=', disc_prod.id)])
 
         if self.cober > 0:
+            for rec in self.invoice_line_ids:
+                if rec.product_id.id == prod.id:
+                    rec.unlink()
             self.invoice_line_ids = [(0, 0, {'name': prod.name, 'product_id': prod.id, 'account_id': prod.property_account_income_id ,'price_unit': 0 - self.cober})]
 
         if self.amount_total == 0.0:
             self.journal_id = self.env['account.journal'].search([('code', '=', 'noncf')]).id
         else:
             if self.discount:
+                if self.discount:
+                    for rec in self.invoice_line_ids:
+                        if rec.product_id.id == disc_prod.id:
+                            rec.unlink()
                 self.invoice_line_ids = [(0, 0, {'name': disc_prod.name, 'product_id': disc_prod.id,
                                                  'account_id': disc_prod.property_account_income_id,
                                                  'price_unit': 0 - self.discount})]

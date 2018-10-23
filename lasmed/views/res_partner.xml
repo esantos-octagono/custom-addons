@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_appointments" model="ir.ui.view">
+            <field name="name">medical.patient.appointments</field>
+            <field name="model">medical.patient</field>
+            <field name="inherit_id" ref="medical.medical_patient_view_form"/>
+            <field name="arch" type="xml">
+                <page name="medical" position="after">
+                    <page name="appointments" string="Registros">
+                        <field name="appointment_ids">
+                            <tree editable="bottom">
+                                <field name="description" string="Descripcion" required="1"/>
+                                <field name="image" class="oe_avatar    " widget="image" string="Imagen"/>
+                                <field name="date" string="Fecha"/>
+                                <field name="symptoms" string="Sintomas" required="1"/>
+                                <field name="weight" string="Peso"/>
+                                <field name="uom_id" string="Unidad de medida"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+        <record id="view_register_appointments" model="ir.ui.view">
+            <field name="name">appointment.patient</field>
+            <field name="model">appointment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="patient_id" string="Paciente" required="1"/>
+                        <field name="description" string="Descripcion" required="1"/>
+                    </group>
+                    <group>
+                        <field name="date" string="Fecha"/>
+                        <field name="symptoms" string="Sintomas" required="1"/>
+                        <field name="weight" string="Peso"/>
+                        <field name="uom_id" string="Unidad de medida"/>
+                        <field name="image" string="Archivo"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <act_window id="register_appointment"
+                    name="Registro Médico"
+                    res_model="appointment"
+                    view_mode="form"
+                    view_type="form"
+                    target="new" />
+        <menuitem
+                id="register_appointment"
+                name="Registro Médico"
+                parent="medical.medical_root"
+                action="register_appointment"
+                sequence="2"
+                />
+    </data>
+
+</odoo>
