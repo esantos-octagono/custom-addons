@@ -29,7 +29,7 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-                        <field name="patient_id" string="Paciente" required="1"/>
+                        <field name="patient_id" options="{'no_quick_create': True, 'no_create_edit': False}" string="Paciente" required="1"/>
                         <field name="description" string="Descripcion" required="1"/>
                     </group>
                     <group>
@@ -53,7 +53,7 @@
                 name="Registro Médico"
                 parent="medical.medical_root"
                 action="register_appointment"
-                sequence="2"
+                sequence="15"
                 />
     </data>
 
