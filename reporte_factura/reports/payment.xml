@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            string="Reporte de Pago"
+            id="payment_report_3"
+            model="account.loan.line"
+            report_type="qweb-pdf"
+            name="reporte_factura.payment_receipt_doc"
+            file="reporte_factura.payment_receipt_doc"
+        />
+
+        <template id="payment_receipt_doc">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="reporte_factura.payment_report_document" t-lang="o.loan_id.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="payment_report_document">
+                <t t-call="reporte_factura.payment_external_layout">
+                    <t t-set="o" t-value="o.with_context({'lang':o.loan_id.partner_id.lang})" />
+                    <div class="page">
+                        <div class="row" style="font-size: 17px; padding-top: 250px">
+                            <table>
+                                <tr>
+                                    <td style="width: 1200px; text-align: center; font-size: 27px">
+                                        <strong>
+                                            <span style="font-size:40">RECIBO DE PAGO DE CONTRATO: <span t-field="o.loan_id.name"/></span>
+                                        </strong>
+                                        <hr style="border-top: dashed 3px;"/>
+                                        <hr style="border-top: dashed 3px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 200px; text-align: center">
+                                        <div style="float: left; padding:20px; width: auto">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div style="float: left; margin-right: 20px; font-size:40px"><strong>Cliente: </strong></div>
+                                                        <div style="float: left; font-size:40px"><span t-field="o.loan_id.partner_id.name"/></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div style="float: left; margin-right: 20px; font-size:40px"><strong>Fecha: </strong></div>
+                                                        <div style="float: left; font-size:40px"><span t-field="o.date_paid"/></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div style="padding-top:10px; float: left; margin-right: 20px; font-size:40px"><strong>Concepto: </strong></div>
+                                                        <div style="float: left; font-size:40px">Cuota #<span t-field="o.number"/></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div style="padding-top:10px; float: left; margin-right: 20px; font-size:40px"><strong>Monto: </strong></div>
+                                                        <div style="float: left; font-size:40px"><span t-field="o.dues"/></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+        </template>
+    </data>
+</odoo>
