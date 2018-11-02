@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    praticant = fields.Many2one('medical.practitioner', u"Referido por:")
     ars = fields.Many2one(comodel_name='medical.insurance.company',string="ARS")
     afiliacion = fields.Char(string=u'Afiliación')
     tipo_seguro = fields.Selection([
@@ -90,6 +91,8 @@ class AccountInvoice(models.Model):
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
+
+    praticant = fields.Many2one('medical.practitioner', u"Médico")
 
     @api.onchange('product_id')
     def _onchange_product_id(self):

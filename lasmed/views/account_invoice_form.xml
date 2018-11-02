@@ -15,6 +15,9 @@
                            attrs="{'invisible':[('ars','=',False)],'required':[('ars','!=',False)]}"/>
                     <field name="auth_num"
                            attrs="{'invisible':[('ars','=',False)],'required':[('ars','!=',False)]}"/>
+                    <field name="praticant" attrs="{
+                           'readonly': [('state','not in','draft')]
+                           }" options="{'no_quick_create': True, 'no_create_edit': True}"/>
                 </field>
                 <field name="amount_tax" position="after">
                     <field name="cober"
@@ -33,6 +36,9 @@
                 <field name="invoice_line_ids" position="attributes">
                     <attribute name="context">{'ars_id': ars}</attribute>
                 </field>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='quantity']" position="before">
+                    <field name="praticant" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                </xpath>
             </field>
       </record>
       <record id="is_settled_tree" model="ir.ui.view">
