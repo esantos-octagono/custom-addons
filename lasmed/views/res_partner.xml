@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
         <record id="view_partner_appointments" model="ir.ui.view">
             <field name="name">medical.patient.appointments</field>
             <field name="model">medical.patient</field>
@@ -42,19 +41,17 @@
                 </form>
             </field>
         </record>
-        <act_window id="register_appointment"
-                    name="Registro Médico"
-                    res_model="appointment"
-                    view_mode="form"
-                    view_type="form"
-                    target="new" />
-        <menuitem
-                id="register_appointment"
-                name="Registro Médico"
-                parent="medical.medical_root"
-                action="register_appointment"
-                sequence="15"
-                />
-    </data>
-
+        <!--<act_window id="register_appointment"-->
+                    <!--name="Registro Médico"-->
+                    <!--res_model="appointment"-->
+                    <!--view_mode="form"-->
+                    <!--view_type="form"-->
+                    <!--target="new" />-->
+        <!--<menuitem-->
+                <!--id="register_appointment"-->
+                <!--name="Registro Médico"-->
+                <!--parent="medical.medical_root"-->
+                <!--action="register_appointment"-->
+                <!--sequence="15"-->
+                <!--/>-->
 </odoo>

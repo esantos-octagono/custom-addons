@@ -19,7 +19,7 @@ class AccountInvoice(models.Model):
     auth_num = fields.Char(string=u'# Autorización')
     cober = fields.Monetary("Cobertura")
     discount = fields.Monetary("Descuento")
-    cober_diference = fields.Monetary("Total")
+    cober_diference = fields.Monetary("Total a pagar", compute="_onchange_cober", store=True)
     settled = fields.Boolean(string="Liquidada", default=False)
     is_settle = fields.Boolean(string="Es liquidacion", default=False)
 
@@ -29,7 +29,6 @@ class AccountInvoice(models.Model):
         for rec in invoices:
             amount = 0.0
             for line in rec.invoice_line_ids:
-                print line.name
                 if line.product_id.code == "insurance_cober":
                     pass
                 else:
@@ -39,17 +38,21 @@ class AccountInvoice(models.Model):
 
     amount_cober_total = fields.Monetary("Total", store=True, compute='compute_amount_cober_total')
 
-    @api.onchange('cober','discount','invoice_line_ids')
+    @api.depends('cober','state','discount','invoice_line_ids')
+    @api.multi
     def _onchange_cober(self):
-        if self.cober <= self.amount_total:
-            self.cober_diference = self.amount_total - self.cober
+        if self.cober <= self.amount_total and self.state == "draft":
+            self.cober_diference = self.amount_total - self.cober - self.discount
+        elif self.state =="open":
+            self.cober_diference = self.amount_total
+        elif self.state in ['paid','cancel']:
+            pass
         else:
             raise ValidationError("La cobertura debe ser menor o igual al total de la factura, confirme el monto con el suplidor")
 
     @api.onchange('amount_untaxed','discount','invoice_line_ids')
     def _onchange_amount_total(self):
         amount = self.amount_untaxed + self.amount_tax
-        print amount
         if self.discount < 0.0:
             raise ValidationError("El descuento debe ser positivo")
             self.discount = False
@@ -57,7 +60,9 @@ class AccountInvoice(models.Model):
             raise ValidationError("El descuento debe ser menor o igual al monto a pagar")
             self.discount = False
         else:
+            print "Descuento: "+ str(self.discount)
             self.cober_diference = self.amount_total - self.cober - self.discount
+            print "Total a Pagar: "+ str(self.cober_diference)
 
     @api.multi
     def action_invoice_open(self):
