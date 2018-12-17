@@ -50,7 +50,7 @@ class AccountInvoice(models.Model):
             pass
         elif self.state in ['paid','cancel']:
             pass
-        elif self.cober > self.amount_total and len(self.payment_ids) == 0:
+        elif self.cober > self.amount_total and len(self.payment_ids) == 0 and self.amount_total !=0:
             raise ValidationError("La cobertura debe ser menor o igual al total de la factura, confirme el monto con el suplidor")
 
     @api.onchange('amount_untaxed','discount','invoice_line_ids')

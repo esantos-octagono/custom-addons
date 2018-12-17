@@ -10,8 +10,8 @@
             <div class="header">
                 <div class="row">
                     <div style="text-align:center">
-                        <h1 style="font-size:100px"><span t-field="o.company_id.name"/></h1>
-                        <p style="text-align:center; font-size:50px; padding-top:5px">Tel: <span t-field="o.company_id.partner_id.phone"/><br/>Email: <span t-field="o.company_id.partner_id.email"/></p><br/>
+                        <h1><span t-field="o.company_id.name"/></h1>
+                        <p style="text-align:center; padding-top:5px">Tel: <span t-field="o.company_id.partner_id.phone"/><br/>Email: <span t-field="o.company_id.partner_id.email"/></p><br/>
                     </div>
                 </div>
             </div>
@@ -19,8 +19,8 @@
         <template id="medical_external_layout_footer">
             <div class="footer">
                 <div class="row">
-                    <hr style="padding-top:10px; border-top: dashed 3px;"/>
-                    <h1 style="text-align: center; font-size:50px">FIRMA</h1>
+                    <hr style="padding-top:5px; border-top: dashed 1px;"/>
+                    <h1 style="text-align: center">FIRMA</h1>
                 </div>
             </div>
         </template>
