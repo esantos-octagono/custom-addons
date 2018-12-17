@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="medical_external_layout">
+            <t t-call="medical_report.medical_external_layout_header" />
+            <t t-raw="0" />
+            <t t-call="medical_report.medical_external_layout_footer" />
+        </template>
+        <template id="medical_external_layout_header">
+            <div class="header">
+                <div class="row">
+                    <div style="text-align:center">
+                        <h1 style="font-size:100px"><span t-field="o.company_id.name"/></h1>
+                        <p style="text-align:center; font-size:50px; padding-top:5px">Tel: <span t-field="o.company_id.partner_id.phone"/><br/>Email: <span t-field="o.company_id.partner_id.email"/></p><br/>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template id="medical_external_layout_footer">
+            <div class="footer">
+                <div class="row">
+                    <hr style="padding-top:10px; border-top: dashed 3px;"/>
+                    <h1 style="text-align: center; font-size:50px">FIRMA</h1>
+                </div>
+            </div>
+        </template>
+    </data>
+</openerp>

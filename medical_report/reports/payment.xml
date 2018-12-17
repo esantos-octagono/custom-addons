@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            string="Reporte de factura Medica"
+            id="payment_report_3"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            name="medical_report.medical_receipt_doc"
+            file="medical_report.medical_receipt_doc"
+        />
+
+        <template id="medical_receipt_doc">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="medical_report.medical_report_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="medical_report_document">
+                <t t-call="medical_report.medical_external_layout">
+                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                    <div class="page">
+                        <div class="row" style="font-size: 17px; padding-top: 250px">
+                            <table>
+                                <tr>
+                                    <td style="width: 1200px; text-align: left; font-size: 27px">
+                                        <strong>
+                                            <span style="font-size:40">Factura: <span t-field="o.number"/></span><br/>
+                                            <span style="font-size:40">Cliente: <span t-field="o.partner_id.name"/></span><br/>
+                                            <span style="font-size:40">RNC/Cedula: <span t-field="o.partner_id.vat"/></span><br/>
+                                            <span style="font-size:40">Fecha: <span t-field="o.date_invoice"/></span>
+                                        </strong>
+                                        <hr style="border-top: dashed 3px;"/>
+                                        <hr style="border-top: dashed 3px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 200px; text-align: center">
+                                        <div style="float: left; padding:20px; width: auto">
+                                            <table>
+
+                                                <t t-foreach="o.invoice_line_ids" t-as="line">
+                                                    <div style="float: left; font-size:40px"><span t-field="line.product_id.name"/></div>
+                                                </t>
+                                                <tr>
+                                                    <td>
+                                                        <div style="padding-top:10px; float: left; margin-right: 20px; font-size:40px"><strong>Total a pagar: </strong></div>
+                                                        <div style="float: left; font-size:40px"><span t-field="o.amount_total"/></div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    <div style="padding-top:10px; float: left; margin-right: 20px; font-size:40px">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab asperiores aspernatur consectetur, deleniti deserunt distinctio eligendi excepturi exercitationem fugit illum laboriosam molestiae numquam perferendis, quae, quia quisquam temporibus ut.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur assumenda cum eveniet in iure iusto magnam magni molestiae nihil officiis quas quos reiciendis, sapiente similique soluta tempore velit voluptates.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequatur dolore dolores doloribus facilis harum ipsum iste iure libero minima minus natus non odio officiis, pariatur provident vel, voluptate voluptates.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor dolorem excepturi, fugit harum impedit iusto laudantium non nulla odit quaerat quis quisquam rem repellendus repudiandae rerum tempore temporibus totam, veniam.lorem
+                                    </div>
+                                </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+        </template>
+    </data>
+</odoo>
