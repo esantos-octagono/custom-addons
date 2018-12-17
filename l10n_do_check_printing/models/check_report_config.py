@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 ########################################################################################################################
-#  Copyright (c) 2015 - Marcos Organizador de Negocios SRL. (<https://marcos.do/>)
-#  Write by Eneldo Serrata (eneldo@marcos.do)
+#  Copyright (c) 2015 - Marcos Organizador de Negocios SRL. (<https://marcos.do/>) #  Write by Eneldo Serrata (eneldo@marcos.do)
 #  See LICENSE file for full copyright and licensing details.
 #
 # Odoo Proprietary License v1.0
@@ -33,47 +32,33 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 ########################################################################################################################
-{
-    'name': "Comprobantes fiscales (NCF)",
+from odoo import models, fields, api
 
-    'summary': """
-        Este modulo Implementa la administracion y gestiona los números de comprobantes fiscales para el cumplimentos de las nomas de la Dirección de impuestos internos en la Republica Dominicana.
-    """,
 
-    'description': """
-        Este modulo le permitira administras y configurar los diferentes númneros de comprobantes fiscales autorizados a la empresa.     
-    """,
+class CheckReportConfig(models.Model):
+    _name = "check.report.config"
 
-    'author': "Marcos Organizador de Negocios SRL - Write by Eneldo Serrata",
-    'website': "http://marcos.do",
+    name = fields.Char("Nombre", required=True)
 
-    'category': 'Localization',
-    'version': '10.0',
+    font_zise = fields.Float(string=u"Tamaño del las letras", default=15)
+    body_top = fields.Float(string="Margen superior del cuerpo del cheque", default=23)
 
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'account','account_accountant','marcos_api_tools', 'l10n_do', 'sale'],
+    date_top = fields.Float(string="Margen superior de la fecha", default=4.2)
+    date_left = fields.Float(string="Margen izquierdo de la fecha" , default=200)
 
-    # always loaded
-    'data': [
-        'data/data.xml',
-        'security/ir.model.access.csv',
-        'security/ncf_manager_security.xml',
-        'wizard/account_invoice_cancel_view.xml',
-        'wizard/update_rate_wizard_view.xml',
-        'wizard/account_invoice_refund.xml',
-        'views/shop_view.xml',
-        'views/account_invoice_view.xml',
-        'views/account_view.xml',
-        'views/views.xml',
-        'views/res_currency_view.xml',
-        'views/templates.xml',
-        'views/res_view.xml',
-        'views/dgii_report_view.xml',
-        'data/setup_ncf.xml'
-    ],
-    'demo': [],
-    'images': 'static/description/main.png',
-    'price': 2000,
-    'currency': 'EUR',
-    'license': 'Other proprietary'
-}
+    name_top = fields.Float(string="Margen superior del nombre", default=21)
+    name_left = fields.Float(string="Margen izquierdo del nombre", default=57)
+
+    amount_top = fields.Float(string="Margen superior del monto", default=20)
+    amount_left = fields.Float(string="Margen izquierdo del monto", default=192)
+
+    amount_letter_top = fields.Float(string="Margen superior monto en letras", default=31)
+    amount_letter_left = fields.Float(string="Margen izquierdo monto en letras", default=20)
+
+    check_header_top = fields.Float("Margen superior de la Cabecera", default=0)
+    check_header_left = fields.Float("Margen izquierdo de la Cabecera", default=0)
+    check_header = fields.Many2one("ir.ui.view", string="Plantilla Cabecera del cheque")
+
+    check_footer_top = fields.Float("Margen superior del pie", default=130)
+    check_footer_left = fields.Float("Margen izquierdo del pie", default=3)
+    check_footer = fields.Many2one("ir.ui.view", string="Plantilla Pie del cheque")

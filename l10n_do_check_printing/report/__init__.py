@@ -32,8 +32,4 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 ########################################################################################################################
-
-
-from . import controllers
-from . import wizard
-from . import models
+from . import print_check
