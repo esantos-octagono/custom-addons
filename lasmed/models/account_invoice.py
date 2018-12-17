@@ -38,16 +38,19 @@ class AccountInvoice(models.Model):
 
     amount_cober_total = fields.Monetary("Total", store=True, compute='compute_amount_cober_total')
 
-    @api.depends('cober','state','discount','invoice_line_ids')
+    @api.depends('cober','state','discount')
     @api.multi
     def _onchange_cober(self):
+
         if self.cober <= self.amount_total and self.state == "draft":
             self.cober_diference = self.amount_total - self.cober - self.discount
         elif self.state =="open":
             self.cober_diference = self.amount_total
+        elif self.cober <= self.amount_untaxed and self.state == "draft":
+            pass
         elif self.state in ['paid','cancel']:
             pass
-        else:
+        elif self.cober > self.amount_total and len(self.payment_ids) == 0:
             raise ValidationError("La cobertura debe ser menor o igual al total de la factura, confirme el monto con el suplidor")
 
     @api.onchange('amount_untaxed','discount','invoice_line_ids')
