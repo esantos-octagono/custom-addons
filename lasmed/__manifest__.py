@@ -22,7 +22,8 @@
         "views/res_partner.xml",
         "views/product_form_view.xml",
         "wizard/wizard_cobers.xml",
-        "report/ars_report.xml"
+        "report/ars_report.xml",
+        "report/medical_report.xml"
 
     ],
     'demo': [],

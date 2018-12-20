@@ -17,7 +17,7 @@
              <field name="model">ars.report</field>
              <field name="type">tree</field>
              <field name="arch" type="xml">
-                 <tree string="Reporte de Ars" disable_linking="True">
+                 <tree string="Reporte de Ars" create="false" disable_linking="True">
                      <field name="date"/>
                      <field name="ars"/>
                      <field name="afil"/>

@@ -1,1 +1,1 @@
-from . import ars_report
+from . import ars_report,medical_report
