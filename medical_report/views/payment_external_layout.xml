@@ -2,27 +2,27 @@
 <openerp>
     <data>
         <template id="medical_external_layout">
-            <t t-call="medical_report.medical_external_layout_header" />
+            <!--<t t-call="medical_report.medical_external_layout_header" />-->
             <t t-raw="0" />
-            <t t-call="medical_report.medical_external_layout_footer" />
+            <!--<t t-call="medical_report.medical_external_layout_footer" />-->
         </template>
-        <template id="medical_external_layout_header">
-            <div class="header">
-                <div class="row">
-                    <div style="text-align:center">
-                        <h1><span t-field="o.company_id.name"/></h1>
-                        <p style="text-align:center; padding-top:5px">Tel: <span t-field="o.company_id.partner_id.phone"/><br/>Email: <span t-field="o.company_id.partner_id.email"/></p><br/>
-                    </div>
-                </div>
-            </div>
-        </template>
-        <template id="medical_external_layout_footer">
-            <div class="footer">
-                <div class="row">
-                    <hr style="padding-top:5px; border-top: dashed 1px;"/>
-                    <h1 style="text-align: center">FIRMA</h1>
-                </div>
-            </div>
-        </template>
+        <!--<template id="medical_external_layout_header">-->
+            <!--<div class="header">-->
+                <!--<div class="row">-->
+                    <!--<div style="text-align:center">-->
+                        <!--<h1><span t-field="o.company_id.name"/></h1>-->
+                        <!--<p style="text-align:center; padding-top:5px">Tel: <span t-field="o.company_id.partner_id.phone"/><br/>Email: <span t-field="o.company_id.partner_id.email"/></p><br/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</template>-->
+        <!--<template id="medical_external_layout_footer">-->
+            <!--<div class="footer">-->
+                <!--<div class="row">-->
+                    <!--<hr style="padding-top:5px; border-top: dashed 1px;"/>-->
+                    <!--<h1 style="text-align: center">FIRMA</h1>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</template>-->
     </data>
 </openerp>

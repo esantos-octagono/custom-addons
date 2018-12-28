@@ -19,45 +19,145 @@
         </template>
 
         <template id="medical_report_document">
-                <t t-call="medical_report.medical_external_layout">
-                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                <!--<t t-call="medical_report.medical_external_layout">-->
+                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
                     <div class="page">
-                        <div class="row" style="font-size: 17px; padding-top: 250px">
-                            <table>
-                                <tr>
-                                    <td style="width: 1200px; text-align: left">
-                                        <strong>
-                                            <span>Factura: <span t-field="o.number"/></span><br/>
-                                            <span>Cliente: <span t-field="o.partner_id.name"/></span><br/>
-                                            <span>RNC/Cedula: <span t-field="o.partner_id.vat"/></span><br/>
-                                            <span>Fecha: <span t-field="o.date_invoice"/></span>
-                                        </strong>
-                                        <hr style="border-top: dashed 1px;"/>
-                                        <hr style="border-top: dashed 1px;"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 200px; text-align: center">
-                                        <div style="float: left; padding:20px; width: auto">
-                                            <table>
+                        <div>
+                            <div class="row">
+                                <div style="text-align:center">
+                                    <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height: 120px !important; margin-bottom: 20px"/>
+                                    <!--<h1><span t-field="o.company_id.name"/></h1>-->
+                                    <p style="text-align:center; padding-top:5px">
+                                        <span t-field="o.company_id.partner_id.street"/>, <span t-field="o.company_id.partner_id.state_id"/>, <span t-field="o.company_id.partner_id.country_id"/><br/>
+                                        Tel: <span t-field="o.company_id.partner_id.phone"/>
+                                        <t t-if="o.company_id.partner_id.email">
+                                         | Email: <span t-field="o.company_id.partner_id.email"/>
+                                        </t>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row" style="font-size: 17px; padding-top: 50px">
+                                <table>
+                                    <tr>
+                                        <td style="width: 1200px; text-align: left">
 
-                                                <t t-foreach="o.invoice_line_ids" t-as="line">
-                                                    <div style="float: left"><span t-field="line.product_id.name"/></div>
-                                                </t>
-                                                <tr>
-                                                    <td>
-                                                        <div style="padding-top:10px; float: left; margin-right: 20px"><strong>Total a pagar: </strong></div>
-                                                        <div style="float: left"><span t-field="o.amount_total"/></div>
-                                                    </td>
+                                                <center><span style="font-size:14px;">RNC/Cedula: <span t-field="o.partner_id.vat"/></span></center><br/>
+                                                <table style="border:0px solid transparent;width:100%;font-size:12px;">
+                                                    <tr>
+                                                        <td style="width:50%;">
+                                                            <span>Fecha: <span t-field="o.date_invoice"/></span>
+                                                        </td>
+                                                        <td style="width:50%;text-align:right;">
+                                                            <span>Factura: <span t-field="o.number"/></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table style="border:0px solid transparent;width:100%;margin-top:30px;font-size:12px;">
+                                                    <tr>
+                                                        <td width="70">
+                                                            <span style="padding-top:50px !important;">Cliente: </span>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="o.partner_id.name"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="70">
+                                                            <span style="">Telefono: </span>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="o.partner_id.phone"/>
+                                                        </td>
+                                                    </tr>
+                                                    <t t-if="o.ars.name">
+                                                        <tr>
+                                                            <td width="70">
+                                                                <span style="">ARS: </span>
+                                                            </td>
+                                                            <td>
+                                                                    <span t-field="o.ars.name"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </table>
+
+                                            <hr style="border-top: dashed 1px;"/>
+                                            <!--<hr style="border-top: dashed 1px;"/>-->
+
+                                        </td>
+                                    </tr>
+                                    </table>
+                                      <!-- tabla de contenido de la factura  -->
+                                    <table width="100%">
+                                        <tr style="border-bottom:1px dashed black;font-size:12px;">
+                                            <th width="76%">Prod.</th>
+                                            <th width="12%">Cant.</th>
+                                            <th width="12%">Precio</th>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr>
+                                            <td coldspan="3" width="80%" height="30"> </td>
+                                        </tr>
+                                    </table>
+
+                                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                                        <t t-if="line.product_id.default_code not in ['insurance_cober','discount']">
+                                            <table>
+                                                <tr style="font-size:12px;">
+                                                    <td valign="top" width="76%"><div style="float: left"><span t-field="line.product_id.name" style="font-weight:bold;"/> <br/> <span t-field="line.praticant.name" style="padding-left:30px;"/> </div></td>
+                                                    <td valign="top" width="12%"><div style="float: left"><span t-field="line.quantity"/></div></td>
+                                                    <td valign="top" width="12%"><div style="float: left"><span t-field="line.price_unit"/></div></td>
                                                 </tr>
                                             </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
+                                        </t>
+                                    </t>
+                                    <hr style="border-top: dashed 1px;margin-top:30px;"/>
+
+                                    <table width="100%" style="font-size:12px;">
+                                        <tr>
+                                            <td style="text-align:right;">
+                                                <div style="padding-top:10px; margin-right: 20px"><strong>Cobertura: </strong></div>
+                                            </td>
+                                            <td style="text-align:right;width:100px;">
+                                                <span t-field="o.cober"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="100%" style="font-size:12px;">
+                                        <tr>
+                                            <td style="text-align:right;">
+                                                <div style="padding-top:10px; margin-right: 20px"><strong>Descuento: </strong></div>
+                                            </td>
+                                            <td style="text-align:right;width:100px;">
+                                                <span t-field="o.discount"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="100%" style="font-size:12px;">
+                                        <tr>
+                                            <td style="text-align:right;">
+                                                <div style="padding-top:10px; margin-right: 20px"><strong>Total: </strong></div>
+                                            </td>
+                                            <td style="text-align:right;width:100px;">
+                                                <span t-field="o.amount_total"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <hr style="border-top: dashed 1px;"/>
+                                <h1 style="margin-top:200px; padding-top:10px; text-align: center;font-size:14px;border-top:1px dashed black;">FIRMA Y SELLO</h1>
+                                <center><hr style="margin-top:100px; border-top: solid 2px black;width:25%;"/></center>
+                            </div>
                         </div>
                     </div>
-                </t>
+                <!--</t>-->
         </template>
     </data>
 </odoo>
