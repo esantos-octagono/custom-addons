@@ -16,7 +16,7 @@ class MedicalReport(models.Model):
     ars = fields.Many2one('medical.insurance.company')
     currency_id = fields.Many2one('res.currency','Moneda')
     invoice_id = fields.Many2one('account.invoice','Factura')
-    product_id = fields.Many2one('product.produt','Servicio')
+    product_id = fields.Many2one('product.product','Servicio')
     cobertura = fields.Monetary('Cobertura')
     monto = fields.Monetary('Monto')
 
