@@ -37,7 +37,7 @@ class MedicalReport(models.Model):
             ail.price_subtotal as monto
         from account_invoice_line ail
         inner join account_invoice ai on ail.invoice_id = ai.id
-        WHERE ai.is_settle = FALSE and ai.type ='out_invoice' and ail.praticant is not null
+        WHERE ai.is_settle = FALSE and ai.type ='out_invoice'
 
         )""".format(self._table))
 
