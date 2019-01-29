@@ -46,23 +46,26 @@ class CobersClose(models.TransientModel):
 
     @api.multi
     def settle_invoices(self):
+        print("TESTINNNNNNaasdajsdljalksdjladlkajslkdjalsjdlasjdlkajsldjalskjdlaksjdlkajsdjalskd")
         context = dict(self._context or {})
         active_ids = context.get('active_ids', []) or []
+        print active_ids
         ars_ids = self.env['medical.insurance.company'].search([])
         invoices = []
         cober_prod = self.env['product.template'].search([('default_code', '=', 'insurance_cober')])
         prod = self.env['product.product'].search([('product_tmpl_id', '=', cober_prod.id)])
         account_invoice_obj = self.env['account.invoice']
         shop_ncf_config = self.env['shop.ncf.config'].search([])
-
+        print(ars_ids)
         for ars in ars_ids:
             invoice_ids = self.env['account.invoice'].browse(active_ids)
             invoice_ids = invoice_ids.filtered(lambda r: (r.ars.id == ars.id) and (not r.settled) and (not r.is_settle))
             invoice_line_ids = []
             cober = 0.0
             for invoice in invoice_ids:
+                invoice_cober = invoice.invoice_line_ids.filtered(lambda l: (l.product_id.default_code == 'insurance_cober'))
+                cober+=abs(invoice_cober.price_unit)
                 invoice.settled = True
-                cober+=invoice.cober
 
             invoice_line_ids.append((0, 0, {
                 'product_id': prod.id,
@@ -73,13 +76,15 @@ class CobersClose(models.TransientModel):
             vals = {
                 'partner_id': ars.partner_id.id,
                 'type': 'out_invoice',
-                'sale_fiscal_type': 'final',
-                'shop_ncf_config': shop_ncf_config.id,
+                'sale_fiscal_type': ars.partner_id.sale_fiscal_type,
+                # 'shop_ncf_config': shop_ncf_config.id,
                 'invoice_line_ids': invoice_line_ids,
                 'is_settle': True,
             }
-
-            invoice_id = account_invoice_obj.create(vals) if invoice_line_ids else None
+            if (cober > 0 ):
+                invoice_id = account_invoice_obj.create(vals)
+            else:
+                invoice_id = None
 
             if invoice_id:
                 invoices.append(invoice_id.id)

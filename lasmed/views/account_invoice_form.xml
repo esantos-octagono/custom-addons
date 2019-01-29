@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
                     <field name="tipo_seguro" readonly="0"/>
-                    <field name="ars"
+                    <field name="ars" options="{'no_create': True, 'no_create_edit':True}"
                            attrs="{'invisible':[('tipo_seguro','!=',('insured'))],'required':[('tipo_seguro','=',('insured'))]}"
                     />
                     <field name="afiliacion"

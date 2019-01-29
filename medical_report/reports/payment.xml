@@ -33,6 +33,7 @@
                                         <t t-if="o.company_id.partner_id.email">
                                          | Email: <span t-field="o.company_id.partner_id.email"/>
                                         </t>
+                                        <center><span style="font-size:14px;">RNC/Cedula: <span t-field="o.company_id.vat"/></span></center><br/>
                                     </p>
                                 </div>
                             </div>
@@ -43,7 +44,6 @@
                                     <tr>
                                         <td style="width: 1200px; text-align: left">
 
-                                                <center><span style="font-size:14px;">RNC/Cedula: <span t-field="o.partner_id.vat"/></span></center><br/>
                                                 <table style="border:0px solid transparent;width:100%;font-size:12px;">
                                                     <tr>
                                                         <td style="width:50%;">
