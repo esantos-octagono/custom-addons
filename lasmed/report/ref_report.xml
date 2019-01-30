@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="view_medical_report_ref_tree" model="ir.ui.view">
+             <field name="name">medical.report.ref.tree</field>
+             <field name="model">medical.report.ref</field>
+             <field name="type">tree</field>
+             <field name="arch" type="xml">
+                 <tree string="Reporte de Referentes" create="false" disable_linking="True">
+                     <field name="date"/>
+                     <field name="partner_id"/>
+                     <field name="product_id"/>
+                     <field name="praticant"/>
+                     <field name="ars"/>
+                     <field name="invoice_id"/>
+                     <field name="monto"/>
+                     <field name="cobertura"/>
+                 </tree>
+             </field>
+        </record>
+
+        <record id="view_medical_report_ref_search" model="ir.ui.view">
+            <field name="name">medical.report.ref.search</field>
+            <field name="model">medical.report.ref</field>
+            <field name="arch" type="xml">
+                <search string="Busqueda Ars">
+                    <group expand="0" name="group_by" string="Group By">
+                        <filter name="group_ars" string="ARS" context="{'group_by': 'ars'}"/>
+                    </group>
+                    <group expand="0" name="group_by" string="Group By">
+                        <filter name="group_practicant" string="Medico" context="{'group_by': 'praticant'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_medical_report_ref_all" model="ir.actions.act_window">
+            <field name="name">Reporte de Referentes</field>
+            <field name="res_model">medical.report.ref</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="context">{'search_default_group_practicant': 1}</field>
+            <field name="help">En este reporte se ve el detalle de servicios por medicos.</field>
+        </record>
+
+        <menuitem
+                name="Reporte de Referidores"
+                action="action_medical_report_ref_all"
+                id="menu_action_medical_report_ref_all"
+                parent="account.account_reports_business_intelligence_menu"
+                sequence="20"/>
+    </data>
+</odoo>
