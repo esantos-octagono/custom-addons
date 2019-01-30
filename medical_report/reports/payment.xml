@@ -108,7 +108,7 @@
                                         <t t-if="line.product_id.default_code not in ['insurance_cober','discount']">
                                             <table>
                                                 <tr style="font-size:12px;">
-                                                    <td valign="top" width="76%"><div style="float: left"><span t-field="line.product_id.name" style="font-weight:bold;"/> <br/> <span t-field="line.praticant.name" style="padding-left:30px;"/> </div></td>
+                                                    <td valign="top" width="76%"><div style="float: left"><span t-field="line.product_id.name" style="font-weight:bold;"/> <br/> <span t-field="line.praticant.code" style="padding-left:30px;"/> </div></td>
                                                     <td valign="top" width="12%"><div style="float: left"><span t-field="line.quantity"/></div></td>
                                                     <td valign="top" width="12%"><div style="float: left"><span t-field="line.price_unit"/></div></td>
                                                 </tr>
