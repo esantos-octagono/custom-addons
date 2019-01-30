@@ -27,6 +27,7 @@
                                 <div style="text-align:center">
                                     <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height: 120px !important; margin-bottom: 20px"/>
                                     <!--<h1><span t-field="o.company_id.name"/></h1>-->
+                                    <span>RNC:</span><span t-field="o.company_id.vat"/>
                                     <p style="text-align:center; padding-top:5px">
                                         <span t-field="o.company_id.partner_id.street"/>, <span t-field="o.company_id.partner_id.state_id"/>, <span t-field="o.company_id.partner_id.country_id"/><br/>
                                         Tel: <span t-field="o.company_id.partner_id.phone"/>
