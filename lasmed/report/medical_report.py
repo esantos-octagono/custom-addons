@@ -34,11 +34,14 @@ class MedicalReport(models.Model):
             ai.id as invoice_id,
             ail.product_id,
             ai.cober as cobertura,
-            ail.price_subtotal as monto
+            ail.price_subtotal as monto,
+            pp.id as producto,
+            pp.default_code,
+            pp.product_tmpl_id as producto_temp
         from account_invoice_line ail
         inner join account_invoice ai on ail.invoice_id = ai.id
         inner join product_product pp on ail.product_id = pp.id
-        WHERE ai.is_settle = FALSE and ai.type ='out_invoice'and pp.default_code not in ('insurance_cober','discount')
+        WHERE ai.is_settle = FALSE and ai.type ='out_invoice' and ail.price_subtotal >= 0
 
         )""".format(self._table))
 
@@ -78,7 +81,7 @@ class RefReport(models.Model):
         from account_invoice_line ail
         inner join account_invoice ai on ail.invoice_id = ai.id
         inner join product_product pp on ail.product_id = pp.id
-        WHERE ai.is_settle = FALSE and ai.type ='out_invoice'and pp.default_code not in ('insurance_cober','discount')
+        WHERE ai.is_settle = FALSE and ai.type ='out_invoice'and ail.price_subtotal >= 0
 
         )""".format(self._table))
 
