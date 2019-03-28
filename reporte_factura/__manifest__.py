@@ -2,7 +2,7 @@
     'name': "Reporte Pago",
     'description': "Plantilla para reporte de pagos",
     'version': "1.0",
-    'author': "Edwin de los Santos",
+    'author': "Christian Villa",
     'depends': ['base'],
     'data': [
         'reports/payment.xml',
