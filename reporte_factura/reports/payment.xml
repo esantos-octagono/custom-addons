@@ -56,6 +56,10 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <div style="padding-top:10px; float: left; margin-right: 20px; font-size:40px"><strong>Monto Restante: </strong></div>
+                                                        <div style="float: left; font-size:40px"><span t-field="o.total"/></div>
+                                                </tr>
+                                                <tr>
                                                     <td>
                                                         <div style="padding-top:10px; float: left; margin-right: 20px; font-size:40px"><strong>Monto: </strong></div>
                                                         <div style="float: left; font-size:40px"><span t-field="o.dues"/></div>
