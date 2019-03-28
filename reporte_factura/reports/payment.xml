@@ -52,7 +52,7 @@
                                                 <tr>
                                                     <td>
                                                         <div style="padding-top:10px; float: left; margin-right: 20px; font-size:40px"><strong>Concepto: </strong></div>
-                                                        <div style="float: left; font-size:40px">Cuota #<span t-field="o.number"/> de <span t-field="o.payments"/></div>
+                                                        <div style="float: left; font-size:40px">Cuota #<span t-field="o.number"/> De <span t-field="o.loan_id.payments"/></div>
                                                     </td>
                                                 </tr>
                                                 <tr>
